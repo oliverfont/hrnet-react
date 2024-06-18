@@ -15,7 +15,6 @@ const EmployeeList = () => {
     ];
 
     const data = [
-        // Example data
         {
             id: 1,
             firstName: 'John',

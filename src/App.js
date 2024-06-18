@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import CreateEmployee from './components/CreateEmployee';
 import EmployeeList from './components/EmployeeList';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 function App() {
     return (
@@ -10,6 +10,7 @@ function App() {
             <div className="App">
                 <header className="App-header">
                     <h1>HRnet</h1>
+                    <Link to="/employee-list">View Current Employees</Link>
                 </header>
                 <Routes>
                     <Route path="/employee-list" element={<EmployeeList />} />
