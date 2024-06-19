@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import useEmployeeStore from '../store/useEmployeeStore';
 import Modal from 'react-modal';
+import closeBtn from '../assets/close.png';
+import '../App.css';
 
 const CreateEmployee = () => {
     const [employee, setEmployee] = useState({
@@ -47,53 +50,65 @@ const CreateEmployee = () => {
     };
 
     return (
-        <div className="container">
-            <h2>Create Employee</h2>
-            <form onSubmit={handleSubmit} id="create-employee">
-                <label htmlFor="first-name">First Name</label>
-                <input type="text" id="first-name" name="firstName" value={employee.firstName} onChange={handleChange} />
+        <div className="App">
+            <header className="App-header">
+                <h1>HRnet</h1>
+                <Link to="/employee-list">View Current Employees</Link>
+            </header>
 
-                <label htmlFor="last-name">Last Name</label>
-                <input type="text" id="last-name" name="lastName" value={employee.lastName} onChange={handleChange} />
+            <div className="container">
+                <h2>Create Employee</h2>
+                <form onSubmit={handleSubmit} id="create-employee">
+                    <label htmlFor="first-name">First Name</label>
+                    <input type="text" id="first-name" name="firstName" value={employee.firstName} onChange={handleChange} />
 
-                <label htmlFor="date-of-birth">Date of Birth</label>
-                <DatePicker selected={employee.dateOfBirth} onChange={(date) => handleDateChange('dateOfBirth', date)} />
+                    <label htmlFor="last-name">Last Name</label>
+                    <input type="text" id="last-name" name="lastName" value={employee.lastName} onChange={handleChange} />
 
-                <label htmlFor="start-date">Start Date</label>
-                <DatePicker selected={employee.startDate} onChange={(date) => handleDateChange('startDate', date)} />
+                    <label htmlFor="date-of-birth">Date of Birth</label>
+                    <DatePicker className='date' selected={employee.dateOfBirth} onChange={(date) => handleDateChange('dateOfBirth', date)} />
 
-                <fieldset className="address">
-                    <legend>Address</legend>
+                    <label htmlFor="start-date">Start Date</label>
+                    <DatePicker className='date' selected={employee.startDate} onChange={(date) => handleDateChange('startDate', date)} />
 
-                    <label htmlFor="street">Street</label>
-                    <input id="street" type="text" name="street" value={employee.street} onChange={handleChange} />
+                    <fieldset className="address">
+                        <legend>Address</legend>
 
-                    <label htmlFor="city">City</label>
-                    <input id="city" type="text" name="city" value={employee.city} onChange={handleChange} />
+                        <label htmlFor="street">Street</label>
+                        <input id="street" type="text" name="street" value={employee.street} onChange={handleChange} />
 
-                    <label htmlFor="state">State</label>
-                    <input id="state" type="text" name="state" value={employee.state} onChange={handleChange} />
+                        <label htmlFor="city">City</label>
+                        <input id="city" type="text" name="city" value={employee.city} onChange={handleChange} />
 
-                    <label htmlFor="zip-code">Zip Code</label>
-                    <input id="zip-code" type="number" name="zipCode" value={employee.zipCode} onChange={handleChange} />
-                </fieldset>
+                        <label htmlFor="state">State</label>
+                        <input id="state" type="text" name="state" value={employee.state} onChange={handleChange} />
 
-                <label htmlFor="department">Department</label>
-                <select name="department" id="department" value={employee.department} onChange={handleChange}>
-                    <option value="Sales">Sales</option>
-                    <option value="Marketing">Marketing</option>
-                    <option value="Engineering">Engineering</option>
-                    <option value="Human Resources">Human Resources</option>
-                    <option value="Legal">Legal</option>
-                </select>
+                        <label htmlFor="zip-code">Zip Code</label>
+                        <input id="zip-code" type="number" name="zipCode" value={employee.zipCode} onChange={handleChange} />
+                    </fieldset>
 
-                <button type="submit">Save</button>
-            </form>
+                    <label htmlFor="department">Department</label>
+                    <select name="department" id="department" value={employee.department} onChange={handleChange}>
+                        <option value="Sales">Sales</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Human Resources">Human Resources</option>
+                        <option value="Legal">Legal</option>
+                    </select>
 
-            <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-                <h2>Employee Created!</h2>
-                <button onClick={() => setModalIsOpen(false)}>Close</button>
-            </Modal>
+                    <button type="submit">Save</button>
+                </form>
+
+                <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+                    <p>Employee Created!</p>
+                    <img 
+                        src={closeBtn} 
+                        alt="Close" 
+                        onClick={() => setModalIsOpen(false)} 
+                        className="modal-close-button"
+                    />
+                </Modal>
+            </div>
         </div>
     );
 };

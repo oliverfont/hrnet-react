@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import DataTable from 'react-data-table-component';
 import useEmployeeStore from '../store/useEmployeeStore';
+import '../App.css'; 
 
 const EmployeeList = () => {
     const employees = useEmployeeStore((state) => state.employees);
