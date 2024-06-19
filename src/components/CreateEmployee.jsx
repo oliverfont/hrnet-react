@@ -1,5 +1,7 @@
+// src/components/CreateEmployee.jsx
 import React, { useState } from 'react';
 import DatePickerComponent from './DatePickerComponent';
+import useEmployeeStore from '../store/useEmployeeStore';
 
 const CreateEmployee = () => {
     const [employee, setEmployee] = useState({
@@ -14,13 +16,31 @@ const CreateEmployee = () => {
         department: ''
     });
 
+    const addEmployee = useEmployeeStore((state) => state.addEmployee);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setEmployee({ ...employee, [name]: value });
     };
 
+    const handleDateChange = (name, date) => {
+        setEmployee({ ...employee, [name]: date });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        addEmployee(employee);
+        setEmployee({
+            firstName: '',
+            lastName: '',
+            dateOfBirth: new Date(),
+            startDate: new Date(),
+            street: '',
+            city: '',
+            state: '',
+            zipCode: '',
+            department: ''
+        });
         console.log("Employee Created: ", employee);
     };
 
@@ -35,10 +55,10 @@ const CreateEmployee = () => {
                 <input type="text" id="last-name" name="lastName" value={employee.lastName} onChange={handleChange} />
 
                 <label htmlFor="date-of-birth">Date of Birth</label>
-                <DatePickerComponent />
+                <DatePickerComponent selected={employee.dateOfBirth} onChange={(date) => handleDateChange('dateOfBirth', date)} />
 
                 <label htmlFor="start-date">Start Date</label>
-                <DatePickerComponent />
+                <DatePickerComponent selected={employee.startDate} onChange={(date) => handleDateChange('startDate', date)} />
 
                 <fieldset className="address">
                     <legend>Address</legend>
