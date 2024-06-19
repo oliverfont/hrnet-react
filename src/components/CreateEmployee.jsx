@@ -1,7 +1,8 @@
-// src/components/CreateEmployee.jsx
 import React, { useState } from 'react';
-import DatePickerComponent from './DatePickerComponent';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import useEmployeeStore from '../store/useEmployeeStore';
+import Modal from 'react-modal';
 
 const CreateEmployee = () => {
     const [employee, setEmployee] = useState({
@@ -16,6 +17,7 @@ const CreateEmployee = () => {
         department: ''
     });
 
+    const [modalIsOpen, setModalIsOpen] = useState(false);
     const addEmployee = useEmployeeStore((state) => state.addEmployee);
 
     const handleChange = (e) => {
@@ -41,7 +43,7 @@ const CreateEmployee = () => {
             zipCode: '',
             department: ''
         });
-        console.log("Employee Created: ", employee);
+        setModalIsOpen(true);
     };
 
     return (
@@ -55,10 +57,10 @@ const CreateEmployee = () => {
                 <input type="text" id="last-name" name="lastName" value={employee.lastName} onChange={handleChange} />
 
                 <label htmlFor="date-of-birth">Date of Birth</label>
-                <DatePickerComponent selected={employee.dateOfBirth} onChange={(date) => handleDateChange('dateOfBirth', date)} />
+                <DatePicker selected={employee.dateOfBirth} onChange={(date) => handleDateChange('dateOfBirth', date)} />
 
                 <label htmlFor="start-date">Start Date</label>
-                <DatePickerComponent selected={employee.startDate} onChange={(date) => handleDateChange('startDate', date)} />
+                <DatePicker selected={employee.startDate} onChange={(date) => handleDateChange('startDate', date)} />
 
                 <fieldset className="address">
                     <legend>Address</legend>
@@ -87,6 +89,11 @@ const CreateEmployee = () => {
 
                 <button type="submit">Save</button>
             </form>
+
+            <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+                <h2>Employee Created!</h2>
+                <button onClick={() => setModalIsOpen(false)}>Close</button>
+            </Modal>
         </div>
     );
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import DataTable from 'react-data-table-component';
 import useEmployeeStore from '../store/useEmployeeStore';
 
@@ -25,7 +26,7 @@ const EmployeeList = () => {
                 data={employees}
                 pagination
             />
-            <a href="/">Home</a>
+            <Link to="/">Home</Link>
         </div>
     );
 };
