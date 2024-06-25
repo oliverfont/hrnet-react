@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import useEmployeeStore from '../store/useEmployeeStore';
+import { EmployeeContext } from '../store/EmployeeContext';
 import Modal from 'react-modal';
 import closeBtn from '../assets/close.png';
 import '../App.css';
@@ -21,16 +21,16 @@ const CreateEmployee = () => {
     });
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const addEmployee = useEmployeeStore((state) => state.addEmployee);
+    const { addEmployee } = useContext(EmployeeContext);
 
-    const handleChange = (e) => {
+    const handleChange = useCallback((e) => {
         const { name, value } = e.target;
-        setEmployee({ ...employee, [name]: value });
-    };
+        setEmployee((prev) => ({ ...prev, [name]: value }));
+    }, []);
 
-    const handleDateChange = (name, date) => {
-        setEmployee({ ...employee, [name]: date });
-    };
+    const handleDateChange = useCallback((name, date) => {
+        setEmployee((prev) => ({ ...prev, [name]: date }));
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -66,10 +66,10 @@ const CreateEmployee = () => {
                     <input type="text" id="last-name" name="lastName" value={employee.lastName} onChange={handleChange} />
 
                     <label htmlFor="date-of-birth">Date of Birth</label>
-                    <DatePicker className='date' selected={employee.dateOfBirth} onChange={(date) => handleDateChange('dateOfBirth', date)} />
+                    <DatePicker selected={employee.dateOfBirth} onChange={(date) => handleDateChange('dateOfBirth', date)} />
 
                     <label htmlFor="start-date">Start Date</label>
-                    <DatePicker className='date' selected={employee.startDate} onChange={(date) => handleDateChange('startDate', date)} />
+                    <DatePicker selected={employee.startDate} onChange={(date) => handleDateChange('startDate', date)} />
 
                     <fieldset className="address">
                         <legend>Address</legend>
@@ -100,7 +100,7 @@ const CreateEmployee = () => {
                 </form>
 
                 <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-                    <p>Employee Created!</p>
+                    <h2>Employee Created!</h2>
                     <img 
                         src={closeBtn} 
                         alt="Close" 
