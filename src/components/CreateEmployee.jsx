@@ -1,18 +1,16 @@
-import React, { useState, useCallback, useContext } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 import { EmployeeContext } from '../store/EmployeeContext';
-import Modal from 'react-modal';
 import closeBtn from '../assets/close.png';
+import $ from 'jquery';
 import '../App.css';
 
 const CreateEmployee = () => {
     const [employee, setEmployee] = useState({
         firstName: '',
         lastName: '',
-        dateOfBirth: new Date(),
-        startDate: new Date(),
+        dateOfBirth: '',
+        startDate: '',
         street: '',
         city: '',
         state: '',
@@ -28,8 +26,24 @@ const CreateEmployee = () => {
         setEmployee((prev) => ({ ...prev, [name]: value }));
     }, []);
 
-    const handleDateChange = useCallback((name, date) => {
-        setEmployee((prev) => ({ ...prev, [name]: date }));
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            // Ensure that jQuery is available globally
+            window.jQuery = $;
+            require('jquery-ui/ui/widgets/datepicker');
+            require('./jquery-ui/ui/jquery.datetimepicker.full.min.js');
+
+            $('#date-of-birth').datetimepicker({
+                timepicker: false,
+                format: 'Y-m-d',
+                onSelectDate: (ct) => setEmployee((prev) => ({ ...prev, dateOfBirth: ct })),
+            });
+            $('#start-date').datetimepicker({
+                timepicker: false,
+                format: 'Y-m-d',
+                onSelectDate: (ct) => setEmployee((prev) => ({ ...prev, startDate: ct })),
+            });
+        }
     }, []);
 
     const handleSubmit = (e) => {
@@ -38,8 +52,8 @@ const CreateEmployee = () => {
         setEmployee({
             firstName: '',
             lastName: '',
-            dateOfBirth: new Date(),
-            startDate: new Date(),
+            dateOfBirth: '',
+            startDate: '',
             street: '',
             city: '',
             state: '',
@@ -47,6 +61,10 @@ const CreateEmployee = () => {
             department: ''
         });
         setModalIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalIsOpen(false);
     };
 
     return (
@@ -66,10 +84,10 @@ const CreateEmployee = () => {
                     <input type="text" id="last-name" name="lastName" value={employee.lastName} onChange={handleChange} />
 
                     <label htmlFor="date-of-birth">Date of Birth</label>
-                    <DatePicker selected={employee.dateOfBirth} onChange={(date) => handleDateChange('dateOfBirth', date)} />
+                    <input type="text" id="date-of-birth" name="dateOfBirth" value={employee.dateOfBirth} onChange={handleChange} />
 
                     <label htmlFor="start-date">Start Date</label>
-                    <DatePicker selected={employee.startDate} onChange={(date) => handleDateChange('startDate', date)} />
+                    <input type="text" id="start-date" name="startDate" value={employee.startDate} onChange={handleChange} />
 
                     <fieldset className="address">
                         <legend>Address</legend>
@@ -99,15 +117,19 @@ const CreateEmployee = () => {
                     <button type="submit">Save</button>
                 </form>
 
-                <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-                    <h2>Employee Created!</h2>
-                    <img 
-                        src={closeBtn} 
-                        alt="Close" 
-                        onClick={() => setModalIsOpen(false)} 
-                        className="modal-close-button"
-                    />
-                </Modal>
+                {modalIsOpen && (
+                    <div className="modal-overlay" onClick={closeModal}>
+                        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                            <img
+                                src={closeBtn}
+                                alt="Close"
+                                className="modal-close-button"
+                                onClick={closeModal}
+                            />
+                            <p>Employee Created!</p>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
