@@ -66,10 +66,10 @@ const CreateEmployee = () => {
                     <input type="text" id="last-name" name="lastName" value={employee.lastName} onChange={handleChange} />
 
                     <label htmlFor="date-of-birth">Date of Birth</label>
-                    <DatePicker selected={employee.dateOfBirth} onChange={(date) => handleDateChange('dateOfBirth', date)} />
+                    <DatePicker id='date-of-birth' selected={employee.dateOfBirth} onChange={(date) => handleDateChange('dateOfBirth', date)} />
 
                     <label htmlFor="start-date">Start Date</label>
-                    <DatePicker selected={employee.startDate} onChange={(date) => handleDateChange('startDate', date)} />
+                    <DatePicker id='start-date' selected={employee.startDate} onChange={(date) => handleDateChange('startDate', date)} />
 
                     <fieldset className="address">
                         <legend>Address</legend>
