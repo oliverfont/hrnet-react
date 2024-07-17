@@ -38,6 +38,7 @@
     ]
   },
   "devDependencies": {
+    "depcheck": "^1.4.7",
     "eslint-config-react-app": "^7.0.1"
   }
 }

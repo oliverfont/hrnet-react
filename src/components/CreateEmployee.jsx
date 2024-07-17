@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { EmployeeContext } from '../store/EmployeeContext';
-import Modal from 'react-modal';
-import closeBtn from '../assets/close.png';
 import '../App.css';
+import states from '../data/states';
 
 const CreateEmployee = () => {
     const [employee, setEmployee] = useState({
@@ -49,6 +48,10 @@ const CreateEmployee = () => {
         setModalIsOpen(true);
     };
 
+    const closeModal = () => {
+        setModalIsOpen(false);
+    };
+
     return (
         <div className="App">
             <header className="App-header">
@@ -66,10 +69,10 @@ const CreateEmployee = () => {
                     <input type="text" id="last-name" name="lastName" value={employee.lastName} onChange={handleChange} />
 
                     <label htmlFor="date-of-birth">Date of Birth</label>
-                    <DatePicker id='date-of-birth' selected={employee.dateOfBirth} onChange={(date) => handleDateChange('dateOfBirth', date)} />
+                    <DatePicker id='date-of-birth' className='date' selected={employee.dateOfBirth} onChange={(date) => handleDateChange('dateOfBirth', date)} />
 
                     <label htmlFor="start-date">Start Date</label>
-                    <DatePicker id='start-date' selected={employee.startDate} onChange={(date) => handleDateChange('startDate', date)} />
+                    <DatePicker id='start-date' className='date' selected={employee.startDate} onChange={(date) => handleDateChange('startDate', date)} />
 
                     <fieldset className="address">
                         <legend>Address</legend>
@@ -81,7 +84,13 @@ const CreateEmployee = () => {
                         <input id="city" type="text" name="city" value={employee.city} onChange={handleChange} />
 
                         <label htmlFor="state">State</label>
-                        <input id="state" type="text" name="state" value={employee.state} onChange={handleChange} />
+                        <select id="state" name="state" value={employee.state} onChange={handleChange}>
+                            {states.map((state) => (
+                                <option key={state.abbreviation} value={state.abbreviation}>
+                                    {state.name}
+                                </option>
+                            ))}
+                        </select>
 
                         <label htmlFor="zip-code">Zip Code</label>
                         <input id="zip-code" type="number" name="zipCode" value={employee.zipCode} onChange={handleChange} />
@@ -99,15 +108,14 @@ const CreateEmployee = () => {
                     <button type="submit">Save</button>
                 </form>
 
-                <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-                    <h2>Employee Created!</h2>
-                    <img 
-                        src={closeBtn} 
-                        alt="Close" 
-                        onClick={() => setModalIsOpen(false)} 
-                        className="modal-close-button"
-                    />
-                </Modal>
+                {modalIsOpen && (
+                    <div className="modal">
+                        <div className="modal-content">
+                            <span className="modal-close-button" onClick={closeModal}>&times;</span>
+                            <p>Employee Created!</p>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

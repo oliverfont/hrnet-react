@@ -1,9 +1,18 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
-const EmployeeContext = createContext();
+export const EmployeeContext = createContext();
 
-const EmployeeProvider = ({ children }) => {
-    const [employees, setEmployees] = useState([]);
+export const EmployeeProvider = ({ children }) => {
+    const [employees, setEmployees] = useState(() => {
+        // Récupérer les données depuis localStorage
+        const savedEmployees = localStorage.getItem('employees');
+        return savedEmployees ? JSON.parse(savedEmployees) : [];
+    });
+
+    useEffect(() => {
+        // Sauvegarder les données dans localStorage chaque fois qu'elles sont modifiées
+        localStorage.setItem('employees', JSON.stringify(employees));
+    }, [employees]);
 
     const addEmployee = (employee) => {
         setEmployees((prevEmployees) => [...prevEmployees, employee]);
@@ -15,5 +24,3 @@ const EmployeeProvider = ({ children }) => {
         </EmployeeContext.Provider>
     );
 };
-
-export { EmployeeContext, EmployeeProvider };

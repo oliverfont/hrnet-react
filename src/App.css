@@ -1,4 +1,9 @@
 /* General Styles */
+
+body, html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .App {
 	display: flex;
 	justify-content: center;
@@ -36,14 +41,19 @@ h2 {
 }
 
 /* Form Styles */
-#department, .date, input, select, button {
+#department, select, button {
 	display: block;
 	width: 100%;
 	padding: 5px;
 	margin-top: 10px;
 }
 
-#department, .date, button {
+input, .date {
+	width: 170px;
+}
+
+
+#department, button {
 	margin-top: 20px;
 }
 
@@ -59,37 +69,48 @@ label {
 
 button {
 	margin: 20px auto;
+	width: 50px;
 }
+
+.address {
+	width: 100%;
+	margin-top: 20px;
+  }
 
 /* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	box-shadow: 0 0 10px #000;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 5px 15px;
+    border-radius: 8px;
+    width: 30%;
+    height: fit-content;
+    position: relative;
+}
+
 .modal-close-button {
-	position: absolute;
-	top: -12.5px;
-	right: -12.5px;
-	width: 30px;
-	height: 30px;
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-image: url('./assets/close.png');
-	cursor: pointer;
+    position: absolute;
+    top: -12.5px;
+    right: -12.5px;
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('./assets/close.png');
+    cursor: pointer;
 }
 
-.ReactModal__Overlay {
-	position: fixed;
-	inset: 0;
-	background-color: rgba(0, 0, 0, 0.75) !important;
-	display: flex !important;
-	justify-content: center !important;
-	align-items: center !important;
-}
 
-.ReactModal__Content {
-	width: 33%;
-	height: fit-content;
-	margin: 30px;
-	overflow: visible !important;
-	padding: 0 20px !important;
-	inset: auto !important;
-	border-radius: 8px !important;
-}

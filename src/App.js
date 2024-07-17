@@ -3,6 +3,7 @@ import CreateEmployee from './components/CreateEmployee';
 import EmployeeList from './components/EmployeeList';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { EmployeeProvider } from './store/EmployeeContext';
+import './App.css';
 
 function App() {
     return (
