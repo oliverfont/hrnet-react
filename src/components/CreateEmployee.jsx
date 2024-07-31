@@ -2,6 +2,7 @@ import React, { useState, useCallback, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import Modal from 'm0d4l_plugin';
 import { EmployeeContext } from '../store/EmployeeContext';
 import '../App.css';
 import states from '../data/states';
@@ -108,14 +109,9 @@ const CreateEmployee = () => {
                     <button type="submit">Save</button>
                 </form>
 
-                {modalIsOpen && (
-                    <div className="modal">
-                        <div className="modal-content">
-                            <span className="modal-close-button" onClick={closeModal}>&times;</span>
-                            <p>Employee Created!</p>
-                        </div>
-                    </div>
-                )}
+                <Modal isOpen={modalIsOpen} onClose={closeModal}>
+                    <p>Employee Created!</p>
+                </Modal>
             </div>
         </div>
     );
