@@ -24,7 +24,7 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
 Clonez le dépôt et installez les dépendances nécessaires :
 
 ```bash
-git clone https://github.com/votre-repo/hrnet.git
+git clone https://github.com/oliverfont/hrnet-react.git
 cd hrnet
 npm install
 ```
