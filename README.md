@@ -64,7 +64,7 @@ npm install -g serve
  - Servez l'application :
 
 ```bash
-serve -s build
+serve -s build -l 5000
 ```
 
 Cela ouvrira l'application à l'adresse suivante : http://localhost:5000.
