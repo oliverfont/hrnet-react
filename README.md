@@ -1,53 +1,74 @@
 # HRNet Application
 
-HRNet est une application de gestion des employés construite avec React. Elle utilise le plugin `m0d4l_plugin` pour afficher des modales personnalisées.
+HRNet est une application de gestion des employés construite avec React. Elle permet aux utilisateurs de créer, afficher et gérer les informations des employés. L'application utilise le plugin [`m0d4l_plugin`](https://www.npmjs.com/package/m0d4l_plugin) pour afficher des modales personnalisées.
+
+## Table des matières
+
+1. [Prérequis](#prérequis)
+2. [Installation](#installation)
+3. [Utilisation](#utilisation)
+    - [Mode Développement](#mode-développement)
+    - [Mode Production](#mode-production)
+    - [Servir l'application avec `serve`](#servir-lapplication-avec-serve)
+4. [Licence](#licence)
 
 ## Prérequis
 
-- Node.js (version 14 ou supérieure)
-- npm (ou yarn)
+Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
+
+- [Node.js](https://nodejs.org/) (version 14 ou supérieure)
+- [npm](https://www.npmjs.com/) (ou [yarn](https://yarnpkg.com/))
 
 ## Installation
 
-Cloner le dépôt et installer les dépendances :
+Clonez le dépôt et installez les dépendances nécessaires :
 
 ```bash
 git clone https://github.com/votre-repo/hrnet.git
 cd hrnet
 npm install
+```
 
 ## Utilisation
 
-Exécuter en Mode Développement
+### Mode Développement
 
-Pour lancer l'application en mode développement :
+Pour exécuter l'application en mode développement, utilisez la commande suivante :
 
 ```bash
 npm start
+```
 
-Cela ouvrira l'application dans votre navigateur à http://localhost:3000.
-Construire l'Application pour la Production
+Cela ouvrira l'application dans votre navigateur à l'adresse suivante : http://localhost:3000.
 
-Pour construire l'application pour un environnement de production, exécutez :
+### Mode Production
+
+Pour préparer l'application pour un environnement de production, utilisez la commande suivante :
 
 ```bash
 npm run build
+```
 
-Cela créera un répertoire build avec les fichiers optimisés.
-Servir l'Application avec serve
+Cela générera un répertoire build contenant les fichiers optimisés pour la production.
 
-Une fois l'application construite, vous pouvez la servir localement pour tester les performances avec Lighthouse :
+#### Servir l'Application avec serve
 
-    Installez serve globalement si ce n'est pas déjà fait :
+Une fois l'application construite, vous pouvez la servir localement pour tester les performances, par exemple avec Lighthouse.
 
-bash
+ - Installez serve globalement si ce n'est pas déjà fait :
 
+```bash
 npm install -g serve
+```
 
-    Servez l'application :
+ - Servez l'application :
 
-bash
-
+```bash
 serve -s build
+```
 
-Cela ouvrira l'application à l'adresse http://localhost:5000.
+Cela ouvrira l'application à l'adresse suivante : http://localhost:5000.
+
+## Licence
+
+Ce projet est sous licence MIT.
