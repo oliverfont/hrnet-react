@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Modal from 'm0d4l_plugin';
+import closeIcon from '../assets/close.png';
 import { EmployeeContext } from '../store/EmployeeContext';
 import '../App.css';
 import states from '../data/states';
@@ -109,7 +110,19 @@ const CreateEmployee = () => {
                     <button type="submit">Save</button>
                 </form>
 
-                <Modal isOpen={modalIsOpen} onClose={closeModal}>
+                <Modal 
+                    isOpen={modalIsOpen} 
+                    onClose={closeModal} 
+                    title="Employee Created!" 
+                    size="medium" 
+                    closeIcon={closeIcon}
+                    customStyles={{
+                        modal: { backgroundColor: 'rgba(0, 0, 0, 0.8)' },
+                        modalContent: { padding: '5px 15px', borderRadius: '10px' },
+                        title: { color: '#00f' },
+                        body: { color: '#333' }
+                    }}
+                >
                     <p>Employee Created!</p>
                 </Modal>
             </div>

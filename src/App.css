@@ -109,8 +109,10 @@ button {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background-image: url('./assets/close.png');
     cursor: pointer;
 }
 
-
+.modal-close-button img {
+    width: 30px;
+    height: 30px;
+}
