@@ -9,6 +9,7 @@ import '../App.css';
 import states from '../data/states';
 
 const CreateEmployee = () => {
+    // État pour gérer les informations de l'employé
     const [employee, setEmployee] = useState({
         firstName: '',
         lastName: '',
@@ -21,22 +22,28 @@ const CreateEmployee = () => {
         department: ''
     });
 
+    // État pour gérer l'ouverture de la modal
     const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    // Accès au contexte pour ajouter un employé
     const { addEmployee } = useContext(EmployeeContext);
 
+    // Gestion des changements dans les champs de texte
     const handleChange = useCallback((e) => {
         const { name, value } = e.target;
         setEmployee((prev) => ({ ...prev, [name]: value }));
     }, []);
 
+    // Gestion des changements de date avec le DatePicker
     const handleDateChange = useCallback((name, date) => {
         setEmployee((prev) => ({ ...prev, [name]: date }));
     }, []);
 
+    // Gestion du formulaire : ajout de l'employé et ouverture de la modal
     const handleSubmit = (e) => {
         e.preventDefault();
-        addEmployee(employee);
-        setEmployee({
+        addEmployee(employee);  // Ajoute l'employé au contexte
+        setEmployee({           // Réinitialise le formulaire
             firstName: '',
             lastName: '',
             dateOfBirth: new Date(),
@@ -47,9 +54,10 @@ const CreateEmployee = () => {
             zipCode: '',
             department: ''
         });
-        setModalIsOpen(true);
+        setModalIsOpen(true);   // Ouvre la modal
     };
 
+    // Fonction pour fermer la modal
     const closeModal = () => {
         setModalIsOpen(false);
     };
@@ -58,12 +66,15 @@ const CreateEmployee = () => {
         <div className="App">
             <header className="App-header">
                 <h1>HRnet</h1>
+                {/* Lien vers la liste des employés */}
                 <Link to="/employee-list">View Current Employees</Link>
             </header>
 
             <div className="container">
                 <h2>Create Employee</h2>
+                {/* Formulaire pour créer un employé */}
                 <form onSubmit={handleSubmit} id="create-employee">
+                    {/* Champs de saisie pour les informations de l'employé */}
                     <label htmlFor="first-name">First Name</label>
                     <input type="text" id="first-name" name="firstName" value={employee.firstName} onChange={handleChange} />
 
@@ -78,7 +89,6 @@ const CreateEmployee = () => {
 
                     <fieldset className="address">
                         <legend>Address</legend>
-
                         <label htmlFor="street">Street</label>
                         <input id="street" type="text" name="street" value={employee.street} onChange={handleChange} />
 
@@ -87,6 +97,7 @@ const CreateEmployee = () => {
 
                         <label htmlFor="state">State</label>
                         <select id="state" name="state" value={employee.state} onChange={handleChange}>
+                            {/* Affichage des états disponibles */}
                             {states.map((state) => (
                                 <option key={state.abbreviation} value={state.abbreviation}>
                                     {state.name}
@@ -110,6 +121,7 @@ const CreateEmployee = () => {
                     <button type="submit">Save</button>
                 </form>
 
+                {/* Modal affichée après la création d'un employé */}
                 <Modal 
                     isOpen={modalIsOpen} 
                     onClose={closeModal} 
