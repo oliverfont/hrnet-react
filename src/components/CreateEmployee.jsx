@@ -113,13 +113,11 @@ const CreateEmployee = () => {
                 <Modal 
                     isOpen={modalIsOpen} 
                     onClose={closeModal} 
-                    title="Employee Created!" 
                     size="" 
                     closeIcon={closeIcon}
                     customStyles={{
                         modal: { backgroundColor: 'rgba(0, 0, 0, 0.8)' },
                         modalContent: { padding: '5px 15px', borderRadius: '10px' },
-                        title: { color: '#00f' },
                         body: { color: '#333' }
                     }}
                 >
