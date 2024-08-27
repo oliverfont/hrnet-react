@@ -97,7 +97,6 @@ const CreateEmployee = () => {
 
                         <label htmlFor="state">State</label>
                         <select id="state" name="state" value={employee.state} onChange={handleChange}>
-                            {/* Affichage des états disponibles */}
                             {states.map((state) => (
                                 <option key={state.abbreviation} value={state.abbreviation}>
                                     {state.name}
